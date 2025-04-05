@@ -21,7 +21,7 @@ exports.obtenerClientes = async (req, res) => {
 // Obtener un cliente por id
 exports.obtenerClientePorId = async (req, res) => {
   try {
-    const cliente = await Cliente.findById(req.params.id);
+    const cliente = await Cliente.findOne({ id: req.params.id });
     if (!cliente) {
       return res.status(404).json({ message: "Cliente no encontrado" });
     }
@@ -49,8 +49,8 @@ exports.actualizarCliente = async (req, res) => {
 // Eliminar un cliente
 exports.eliminarCliente = async (req, res) => {
   try {
-    const clienteEliminado = await Cliente.findByIdAndDelete(req.params.id);
-    if (!clienteEliminado) {
+    const cliente = await Cliente.findOneAndDelete({ email: req.params.id });
+    if (!cliente) {
       return res.status(404).json({ message: "Cliente no encontrado" });
     }
     res.json({ message: "Cliente eliminado" });
