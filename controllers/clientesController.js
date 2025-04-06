@@ -21,7 +21,7 @@ exports.obtenerClientes = async (req, res) => {
 // Obtener un cliente por id
 exports.obtenerClientePorId = async (req, res) => {
   try {
-    const cliente = await Cliente.findOne({ id: req.params.id });
+    const cliente = await Cliente.findOne({ email: req.params.id });
     if (!cliente) {
       return res.status(404).json({ message: "Cliente no encontrado" });
     }
